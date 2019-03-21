@@ -1,0 +1,133 @@
+辅助知识：
+1.Java区分大小写
+2.访问修饰符：public private protectd
+3.源代码文件必须与公共类同名，以.java结尾，编译得到.class后缀文件，程序入口是main方法，main方法强制public
+4.Java应用程序格式：
+public class className{
+    public static void main(String[] args){
+        // to do
+    }
+}
+
+5.注释（一共三种）：
+①  //   单行
+②  /* */多行
+③  /** 
+* xxxx
+* xxxxx
+ */
+可以用来自动生成文档
+
+
+数据类型：
+Java是强类型语言，声明变量需要指定一种类型
+Java没有任何无符号形式的整型
+
+final：
+关键词final修饰的变量只能被赋值一次，作为常量
+final修饰符大多应用于基本类型域，或不可变类的域（如果类中的方法都不会改变其对象，String类就是一个不可变的类）
+对于可变的类，例如StringBuilder：
+private final StringBuilder strB;
+final关键词只是表示存储在strB变量中的对象引用不会再指示其他StringBuilder对象，不过对象可以更改。
+可以理解为final是只能引用某个特定地址上的object
+final修饰的类不能被继承
+
+运算符：
+
+常用的数学函数：
+Math.sqrt()（开方）
+Math.pow(x,a)（x的a次幂运算，x，a和返回结果都是double）
+Math.round(x) （对浮点数进行舍入，得到最接近x的整数）
+二元运算时数值类型转换：
+两个操作数中有double，都变成double计算，否则，有float，都变成float计算，否则，有long，都变成long计算，否则，全部变成int计算。
+精度丢失如下图，实线表示不丢失，虚线表示丢失：
+   char——>int
+byte——>short——>int——>long
+            int——>double
+  float——>double
+int  long----->float
+long----->double
+char 类型的数据转为高级类型时，会转换为对应的 ASCII 码。
+自动转换按从低到高的顺序转换。不同类型数据间的优先关系如下：
+低 ---------------------------------------------> 高
+byte,short,char-> int -> long -> float -> double
+
+1.算术运算符 + - * / %（取余）A/B，如果A和B都是整数，表示整除
+2.综合赋值和运算符 += -= *= /= %= 运算结果与左侧操作数类型不同，会发生强制类型转换
+3.自加++，自减--。前缀形式用新值，后缀形式会使用变量原值
+4.关系运算符  ==  !=  <  >  <=  >=  逻辑运算符&& || ! 绿色的逻辑运算符会短路 三目运算符condition?expression1:expression2;
+5.位运算符 &  |  ~（not）  ^(xor)  >>  <<  >>>(0填高位，>>使用符号为填高位)
+java运算符优先级记忆口诀
+单目乘除为关系，逻辑三目后赋值。
+单目：单目运算符+ –(负数) ++ -- 等 
+乘除：算数单目运算符* / % + - 
+位：位移单目运算符<< >> 
+关系：关系单目运算符> < >= <= == != 
+逻辑：逻辑单目运算符&& || & | ^ 
+三目：三目单目运算符A > B ? X : Y 
+后：无意义，仅仅为了凑字数 
+赋值：赋值=。
+
+String类
+String是预定义类，每个用双引号括起来的都是String类的一个实例：
+字符串的基本使用：
+子串：substring()
+拼接：+
+检测相等s.equals(t)， 理解为实例s的equals方法，参数必须是String类的实例
+长度 length
+构建字符串，有些时候，需要由较短的字符串构建字符串，如果使用String +的方式效率比较低，每次连接字符串，都会构建一个新的String对象，耗时浪费空间。可以使用StringBuilder
+// generate a instance
+StringBuilder builder = new StringBuilder();
+// append 
+builder.append(ch);
+builder.append(str);
+// toStirng
+String completedSting = builder.toString();
+
+★★String、StringBuffer 与 StringBuilder 的区别
+1）可变与不可变
+String 对象是不可变的；StringBuilder 与 StringBuffer 对象是可变的。因此在每次对 String 类型进行改变的时候，都会生成一个新的 String 对象，然后将指针指向新的 String 对象，所以经常改变内容的字符串最好不要用 String ，因为每次生成对象都会对系统性能产生影响，特别当内存中无引用对象多了以后， JVM 的 GC 就会开始工作，性能就会降低。
+2）是否多线程安全
+String 和StringBuffer 是线程安全的。 StringBuilder并没有对方法进行加同步锁，所以是非线程安全的。
+3）初始化方式的不同
+StringBuffer 和 StringBuilder 只能用构造函数的形式来初始化。String 除了用构造函数进行初始化外，还可以直接赋值。
+
+
+输入与输出（刷题用的最多的一些基操）
+输出：System.out.println即可
+          格式化输出System.out.printf()
+输入：
+// 构造一个Scanner对象
+Scanner in = new Scanner(System.in);
+// 读一行
+String name = in.nextLine();
+// 读一个整数
+int age = in.nextInt();
+
+文件输入与输出
+对文件读取，需要一个用File对象构造一个Scanner对象
+对文件写入，需要构造一个PrintWriter对象
+
+控制流程：
+块（复合语句，由一对大括号括起来）确定了变量的作用域，一个块可以嵌套到另一个块里，但是，不能在嵌套的两个块中声明同名的变量。
+1.for(stateA;StateB;stateC){
+// to do
+}
+2.switch(choice){
+case 1:
+// to do
+break;
+case 2:
+// to do
+break;
+default:
+// to do 
+break;
+}
+case标签可以是char byte short int 枚举常量  java7以后可以是字符串字面量
+break跳出循环，continue结束当前循环，开始下一次循环（不跳出）；
+
+数组：
+for each循环，依次处理数组中的每个元素
+格式： for(variable : collection) statement
+collection必须是一个数组或者一个实现Iterable接口的类对象
